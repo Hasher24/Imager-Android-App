@@ -5,11 +5,11 @@
     android:layout_margin="10dp"
     android:elevation="15dp">
     
-    <ImageButton
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/itemImageView"
-        android:scaleType="centerCrop"
-        android:background="@color/light_white"/>
+        android:background="@color/light_white"
+        android:scaleType="matrix"/>
 
 </androidx.cardview.widget.CardView>

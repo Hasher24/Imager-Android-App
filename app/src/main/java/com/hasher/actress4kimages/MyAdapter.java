@@ -1,7 +1,6 @@
 package com.hasher.actress4kimages;
 
-import android.content.Context;
-import android.provider.ContactsContract;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +17,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     ArrayList<Model> mList;
     private HomeFragment context;
+    onItemClickListener listener;
+    String imageUri;
 
     //public MyAdapter(Context context, ArrayList<Model> mList) {}
 
 
-    public MyAdapter(HomeFragment homeFragment, ArrayList<Model> mList) {
-        this.context = homeFragment;
+    public MyAdapter(ArrayList<Model> mList, HomeFragment context, onItemClickListener listener) {
         this.mList = mList;
+        this.context = context;
+        this.listener = listener;
     }
-
 
     @NonNull
     @Override
@@ -45,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return mList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
 
@@ -53,6 +54,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.itemImageView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imageUri = mList.get(getAdapterPosition()).getImageUrl();
+                    listener.onClick(getAdapterPosition(),imageUri);
+                }
+            });
         }
     }
 }
